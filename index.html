@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zimbabwe Vision 2030 Portal - Economic Progress & Development</title>
+    <meta name="description" content="Comprehensive portal showcasing Zimbabwe's journey to Vision 2030 through TSP, NDS1, and NDS2 programs with latest economic data and achievements.">
+    <meta name="keywords" content="Vision2030, Zimbabwe, TSP, NDS1, NDS2, Economic Growth, Development, GDP, Infrastructure">
+    <meta name="author" content="Munyaradzi Chiondegwa">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a531b',
+                        secondary: '#d4af37',
+                        accent: '#e31e24',
+                        success: '#008751',
+                        dark: {
+                            bg: '#181818',
+                            card: '#262626',
+                            text: '#E5E5E5'
+                        },
+                        light: {
+                            bg: '#FFFFFF',
+                            card: '#F5F5F5',
+                            text: '#333333'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #1a531b 0%, #2d7a30 50%, #008751 100%);
+        }
+
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .timeline-line {
+            position: relative;
+        }
+
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #e31e24, #008751, #d4af37);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 4px solid #d4af37;
+            background: #fff;
+        }
+
+        .dark .timeline-dot {
+            background: #181818;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased font-sans bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text">
+    <!-- Theme Detection Script -->
+    <script>
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-primary shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="flex flex-col">
+                        <span class="text-xl md:text-2xl font-bold text-secondary">Zimbabwe Vision 2030</span>
+                        <span class="text-xs md:text-sm text-white">Towards an Upper Middle-Income Economy</span>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#home" class="text-white hover:text-secondary transition-colors font-medium">Home</a>
+                    <a href="#overview" class="text-white hover:text-secondary transition-colors font-medium">Overview</a>
+                    <a href="#economy" class="text-white hover:text-secondary transition-colors font-medium">Economy</a>
+                    <a href="#programs" class="text-white hover:text-secondary transition-colors font-medium">Programs</a>
+                    <a href="#sectors" class="text-white hover:text-secondary transition-colors font-medium">Sectors</a>
+                    <a href="#news" class="text-white hover:text-secondary transition-colors font-medium">News</a>
+                </nav>
+                <div class="flex items-center space-x-2">
+                    <button id="theme-toggle" type="button" class="p-2 rounded-full hover:bg-white/10 transition-colors" title="Toggle Theme">
+                        <i class="fas fa-moon hidden dark:block text-white"></i>
+                        <i class="fas fa-sun block dark:hidden text-white"></i>
+                    </button>
+                    <button id="mobile-menu-toggle" type="button" class="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors">
+                        <i class="fas fa-bars text-white"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2 space-y-2">
+                <a href="#home" class="block py-2 text-white hover:text-secondary transition-colors">Home</a>
+                <a href="#overview" class="block py-2 text-white hover:text-secondary transition-colors">Overview</a>
+                <a href="#economy" class="block py-2 text-white hover:text-secondary transition-colors">Economy</a>
+                <a href="#programs" class="block py-2 text-white hover:text-secondary transition-colors">Programs</a>
+                <a href="#sectors" class="block py-2 text-white hover:text-secondary transition-colors">Sectors</a>
+                <a href="#news" class="block py-2 text-white hover:text-secondary transition-colors">News</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Zimbabwe Vision 2030</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-4xl mx-auto">Towards a Prosperous and Empowered Upper Middle-Income Society by 2030: Inclusive Growth, Innovation, and Resilience</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#overview" class="bg-secondary hover:bg-yellow-500 text-primary px-8 py-3 rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-xl">Explore Our Journey</a>
+                <a href="#economy" class="bg-white/20 hover:bg-white/30 text-white border-2 border-white px-8 py-3 rounded-full font-bold text-lg transition-all">View Economic Data</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Statistics Banner -->
+    <section class="bg-white dark:bg-dark-card py-12 border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="stat-card bg-gradient-to-br from-primary to-success text-white rounded-lg p-6 text-center">
+                    <i class="fas fa-chart-line text-4xl mb-3 opacity-80"></i>
+                    <div class="text-4xl font-bold mb-2">6.0%</div>
+                    <div class="text-sm opacity-90">Projected GDP Growth (2025)</div>
+                </div>
+                <div class="stat-card bg-gradient-to-br from-accent to-red-700 text-white rounded-lg p-6 text-center">
+                    <i class="fas fa-dollar-sign text-4xl mb-3 opacity-80"></i>
+                    <div class="text-4xl font-bold mb-2">$45.7B</div>
+                    <div class="text-sm opacity-90">GDP (2024)</div>
+                </div>
+                <div class="stat-card bg-gradient-to-br from-secondary to-yellow-600 text-white rounded-lg p-6 text-center">
+                    <i class="fas fa-coins text-4xl mb-3 opacity-80"></i>
+                    <div class="text-4xl font-bold mb-2">$3,000+</div>
+                    <div class="text-sm opacity-90">Per Capita Income Target (2025)</div>
+                </div>
+                <div class="stat-card bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-lg p-6 text-center">
+                    <i class="fas fa-percentage text-4xl mb-3 opacity-80"></i>
+                    <div class="text-4xl font-bold mb-2">&lt;3%</div>
+                    <div class="text-sm opacity-90">Avg. Monthly Inflation (2025)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="py-16 bg-gray-50 dark:bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 text-primary dark:text-secondary">Vision 2030 Overview</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Zimbabwe's comprehensive roadmap to becoming an upper middle-income economy by 2030, focused on inclusive growth, innovation, and resilience.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white">
+                            <i class="fas fa-bullseye text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold ml-4 text-primary dark:text-secondary">Vision & Mission</h3>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6 text-lg">To transform Zimbabwe into a prosperous, empowered, upper-middle-income society by 2030.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-success text-xl mt-1"></i>
+                            <p class="ml-4 text-gray-600 dark:text-gray-400">Inclusive economic growth and structural transformation</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-success text-xl mt-1"></i>
+                            <p class="ml-4 text-gray-600 dark:text-gray-400">Modern, world-class infrastructure development</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-success text-xl mt-1"></i>
+                            <p class="ml-4 text-gray-600 dark:text-gray-400">Good governance and strengthening the rule of law</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-success text-xl mt-1"></i>
+                            <p class="ml-4 text-gray-600 dark:text-gray-400">Environmental sustainability and climate resilience</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white">
+                            <i class="fas fa-road text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold ml-4 text-primary dark:text-secondary">Development Path</h3>
+                    </div>
+                    <div class="timeline-line">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="bg-gray-50 dark:bg-dark-bg rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-bold text-lg">TSP</h4>
+                                    <span class="bg-accent text-white text-xs px-3 py-1 rounded-full">2018-2020</span>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Transitional Stabilisation Programme: Economic stabilization and foundation building</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="bg-gray-50 dark:bg-dark-bg rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-bold text-lg">NDS1</h4>
+                                    <span class="bg-success text-white text-xs px-3 py-1 rounded-full">2021-2025</span>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">National Development Strategy 1: Structural reforms and accelerated growth</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="bg-gray-50 dark:bg-dark-bg rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-bold text-lg">NDS2</h4>
+                                    <span class="bg-secondary text-primary text-xs px-3 py-1 rounded-full font-bold">2026-2030</span>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">National Development Strategy 2: Achieving upper middle-income status</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Economic Progress Section with Charts -->
+    <section id="economy" class="py-16 bg-white dark:bg-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 text-primary dark:text-secondary">Economic Progress & Performance</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Tracking Zimbabwe's economic transformation with key indicators and achievements</p>
+            </div>
+
+            <!-- GDP Growth Chart -->
+            <div class="mb-12">
+                <div class="bg-gray-50 dark:bg-dark-bg rounded-lg shadow-lg p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-center text-primary dark:text-secondary">GDP Growth Trajectory (2020-2025)</h3>
+                    <div class="chart-container">
+                        <canvas id="gdpChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600 dark:text-gray-400 text-center">
+                        <i class="fas fa-info-circle mr-1"></i> 2024 growth affected by El Niño drought; 2025 shows strong recovery
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sector Contribution Chart -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <div class="bg-gray-50 dark:bg-dark-bg rounded-lg shadow-lg p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-center text-primary dark:text-secondary">GDP by Sector (2025)</h3>
+                    <div class="chart-container">
+                        <canvas id="sectorChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-dark-bg rounded-lg shadow-lg p-6">
+                    <h3 class="text-2xl font-bold mb-6 text-center text-primary dark:text-secondary">Inflation Trend (2024-2025)</h3>
+                    <div class="chart-container">
+                        <canvas id="inflationChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600 dark:text-gray-400 text-center">
+                        <i class="fas fa-info-circle mr-1"></i> ZiG currency stabilization achieved through monetary policy reforms
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Economic Achievements -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-br from-primary to-success text-white rounded-lg p-6">
+                    <i class="fas fa-coins text-4xl mb-4 opacity-80"></i>
+                    <h4 class="text-xl font-bold mb-2">Currency Stabilization</h4>
+                    <p class="text-sm opacity-90 mb-3">Introduction of ZiG (Zimbabwe Gold) backed by USD and mineral reserves. Exchange rate stability achieved in 2025.</p>
+                    <ul class="text-sm space-y-1">
+                        <li>✓ Policy rate increased to 35%</li>
+                        <li>✓ Reserve requirements at 30%</li>
+                        <li>✓ Parallel market premium reduced</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gradient-to-br from-accent to-red-700 text-white rounded-lg p-6">
+                    <i class="fas fa-chart-bar text-4xl mb-4 opacity-80"></i>
+                    <h4 class="text-xl font-bold mb-2">NDS1 Exceeds Targets</h4>
+                    <p class="text-sm opacity-90 mb-3">National Development Strategy 1 surpassed key economic indicators, building strong foundation for NDS2.</p>
+                    <ul class="text-sm space-y-1">
+                        <li>✓ 6.3% avg. annual growth achieved</li>
+                        <li>✓ 820,000+ jobs created</li>
+                        <li>✓ Infrastructure development accelerated</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gradient-to-br from-secondary to-yellow-600 text-gray-900 rounded-lg p-6">
+                    <i class="fas fa-handshake text-4xl mb-4 opacity-80"></i>
+                    <h4 class="text-xl font-bold mb-2">International Engagement</h4>
+                    <p class="text-sm opacity-90 mb-3">IMF praises Zimbabwe's economic reforms and macroeconomic stability improvements in 2025.</p>
+                    <ul class="text-sm space-y-1">
+                        <li>✓ Article IV consultation completed</li>
+                        <li>✓ Re-engagement initiatives progressing</li>
+                        <li>✓ Investment promotion enhanced</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Programs -->
+    <section id="programs" class="py-16 bg-gray-50 dark:bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 text-primary dark:text-secondary">Development Programs</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Zimbabwe's strategic journey to Vision 2030 through three comprehensive development programs</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- TSP Card -->
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg overflow-hidden transform transition-all hover:scale-105">
+                    <div class="bg-accent h-2"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-2xl font-bold text-primary dark:text-secondary">TSP</h3>
+                            <span class="bg-accent text-white text-xs py-1 px-3 rounded-full font-bold">2018-2020</span>
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-800 dark:text-gray-200 mb-3">Transitional Stabilisation Programme</h4>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Foundation phase focused on stabilizing the economy, restoring confidence, and establishing macroeconomic stability.</p>
+
+                        <div class="mb-6">
+                            <h5 class="font-bold mb-3 flex items-center text-accent">
+                                <i class="fas fa-trophy mr-2"></i> Key Achievements
+                            </h5>
+                            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mr-2 mt-1"></i>
+                                    <span>Reduced inflation and fiscal deficit</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mr-2 mt-1"></i>
+                                    <span>Introduced currency reforms</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mr-2 mt-1"></i>
+                                    <span>Established foundation for NDS1</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mr-2 mt-1"></i>
+                                    <span>Fiscal consolidation initiatives</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">Status</span>
+                                <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-3 py-1 rounded-full font-bold">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NDS1 Card -->
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg overflow-hidden transform transition-all hover:scale-105">
+                    <div class="bg-success h-2"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-2xl font-bold text-primary dark:text-secondary">NDS1</h3>
+                            <span class="bg-success text-white text-xs py-1 px-3 rounded-full font-bold">2021-2025</span>
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-800 dark:text-gray-200 mb-3">National Development Strategy 1</h4>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Medium-term plan accelerating economic growth through structural reforms and infrastructure development.</p>
+
+                        <div class="mb-6">
+                            <h5 class="font-bold mb-3 flex items-center text-success">
+                                <i class="fas fa-star mr-2"></i> Major Achievements
+                            </h5>
+                            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mr-2 mt-1"></i>
+                                    <span>6.3% average annual growth achieved</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mr-2 mt-1"></i>
+                                    <span>820,000+ formal jobs created</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mr-2 mt-1"></i>
+                                    <span>Manufacturing now largest GDP contributor (15.3%)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mr-2 mt-1"></i>
+                                    <span>Major infrastructure projects: dams, roads, energy</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-success mr-2 mt-1"></i>
+                                    <span>Record agricultural output in 2025</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">Status</span>
+                                <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full font-bold">Final Year</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NDS2 Card -->
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg overflow-hidden transform transition-all hover:scale-105 ring-2 ring-secondary">
+                    <div class="bg-secondary h-2"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-2xl font-bold text-primary dark:text-secondary">NDS2</h3>
+                            <span class="bg-secondary text-primary text-xs py-1 px-3 rounded-full font-bold">2026-2030</span>
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-800 dark:text-gray-200 mb-3">National Development Strategy 2</h4>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Final phase to achieve upper middle-income status and fully realize Vision 2030 goals.</p>
+
+                        <div class="mb-6">
+                            <h5 class="font-bold mb-3 flex items-center text-secondary">
+                                <i class="fas fa-bullseye mr-2"></i> Strategic Focus
+                            </h5>
+                            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-secondary mr-2 mt-1"></i>
+                                    <span>Fiscal discipline and macro-stability</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-secondary mr-2 mt-1"></i>
+                                    <span>Create 2 million additional jobs</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-secondary mr-2 mt-1"></i>
+                                    <span>Halve poverty rate</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-secondary mr-2 mt-1"></i>
+                                    <span>Enhance property rights enforcement</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-secondary mr-2 mt-1"></i>
+                                    <span>Transition to mono-currency by 2030</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">Status</span>
+                                <span class="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-full font-bold">In Planning</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NDS1 to NDS2 Transition Info -->
+            <div class="mt-12 bg-white dark:bg-dark-card rounded-lg shadow-lg p-8">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
+                            <i class="fas fa-exchange-alt text-primary text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-xl font-bold mb-2 text-primary dark:text-secondary">Transition to NDS2 (2026-2030)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Cabinet approved the NDS2 roadmap in September 2024. The 2026 National Budget will mark the first implementation year, building on NDS1's strong foundation of macroeconomic stabilization, infrastructure rehabilitation, and the structured ZiG currency system.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-success text-xl mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold mb-1">Infrastructure Investment Programme 2025</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Consolidates achievements and provides foundation for NDS2 projects including Lake Gwayi-Tshangani (50% complete) and DISCO Steel Plant ($1.5B investment)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-success text-xl mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold mb-1">Inclusive Growth Framework</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">NDS2 will emphasize robust trade, investment promotion, and socio-economic transformation to catapult Zimbabwe to Vision 2030 targets</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Economic Sectors -->
+    <section id="sectors" class="py-16 bg-white dark:bg-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 text-primary dark:text-secondary">Key Economic Sectors</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Powering Zimbabwe's economic transformation across strategic industries</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Manufacturing -->
+                <div class="bg-gray-50 dark:bg-dark-bg rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-success text-white flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-industry text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3 text-primary dark:text-secondary">Manufacturing</h3>
+                    <div class="text-center mb-4">
+                        <span class="text-3xl font-bold text-primary dark:text-secondary">15.3%</span>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">of GDP (Largest Contributor)</p>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>200%+ output growth since 2019</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>Capacity utilization: 57.3%</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>$1.4B+ in new investments</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>Steel, cement, FMCG expansion</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Agriculture -->
+                <div class="bg-gray-50 dark:bg-dark-bg rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-success to-green-700 text-white flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-seedling text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3 text-primary dark:text-secondary">Agriculture</h3>
+                    <div class="text-center mb-4">
+                        <span class="text-3xl font-bold text-primary dark:text-secondary">$10.3B</span>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Industry Value (2025)</p>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>Record wheat: 600,045 MT</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>Tobacco: 355M kg ($1.17B)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>85% household food security</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>Dairy self-sufficiency by 2025</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Mining -->
+                <div class="bg-gray-50 dark:bg-dark-bg rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-red-700 text-white flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-gem text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3 text-primary dark:text-secondary">Mining</h3>
+                    <div class="text-center mb-4">
+                        <span class="text-3xl font-bold text-primary dark:text-secondary">14.5%</span>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">of GDP</p>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>2/3 of export earnings</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>1.5M artisanal miners empowered</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>Africa's largest lithium reserves</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>Gold, diamonds, lithium growth</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tourism -->
+                <div class="bg-gray-50 dark:bg-dark-bg rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-secondary to-yellow-600 text-white flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-plane-departure text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-3 text-primary dark:text-secondary">Tourism</h3>
+                    <div class="text-center mb-4">
+                        <span class="text-3xl font-bold text-primary dark:text-secondary">#1</span>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Forbes Destination (2025)</p>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>Open Skies Policy success</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>22 airlines now operating</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>2.9% projected growth (2025)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-success mr-2 mt-1"></i>
+                            <span>Increased hospitality investment</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Infrastructure Development -->
+            <div class="mt-12 bg-gradient-to-br from-primary to-success text-white rounded-lg shadow-lg p-8">
+                <div class="text-center mb-8">
+                    <i class="fas fa-hard-hat text-5xl mb-4 opacity-80"></i>
+                    <h3 class="text-3xl font-bold mb-2">Infrastructure Development</h3>
+                    <p class="text-lg opacity-90">Building world-class infrastructure for sustainable growth</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white/10 backdrop-blur rounded-lg p-6">
+                        <h4 class="font-bold text-xl mb-3 flex items-center">
+                            <i class="fas fa-water text-2xl mr-3"></i> Water Security
+                        </h4>
+                        <ul class="space-y-2 text-sm">
+                            <li>• Kunzvi Dam: 65% complete</li>
+                            <li>• Gwayi-Shangani Dam: 72.4% complete</li>
+                            <li>• Lake Gwayi-Tshangani: 50% complete</li>
+                            <li>• Multiple irrigation projects</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur rounded-lg p-6">
+                        <h4 class="font-bold text-xl mb-3 flex items-center">
+                            <i class="fas fa-road text-2xl mr-3"></i> Transport Network
+                        </h4>
+                        <ul class="space-y-2 text-sm">
+                            <li>• Trabablas Interchange commissioned</li>
+                            <li>• Road rehabilitation nationwide</li>
+                            <li>• 5 new projects launched (2023)</li>
+                            <li>• Enhanced connectivity focus</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur rounded-lg p-6">
+                        <h4 class="font-bold text-xl mb-3 flex items-center">
+                            <i class="fas fa-bolt text-2xl mr-3"></i> Energy Access
+                        </h4>
+                        <ul class="space-y-2 text-sm">
+                            <li>• 2,106 institutions electrified since 2017</li>
+                            <li>• 146 more in progress</li>
+                            <li>• Rural industrialization enabled</li>
+                            <li>• Renewable energy expansion</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News & Updates -->
+    <section id="news" class="py-16 bg-gray-50 dark:bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 text-primary dark:text-secondary">Latest News & Updates</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Stay informed on Zimbabwe's economic progress and development milestones</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- News Card 1 -->
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="bg-gradient-to-r from-primary to-success h-2"></div>
+                    <div class="p-6">
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">October 2025</div>
+                        <h3 class="text-xl font-bold mb-3 text-primary dark:text-secondary">IMF Praises Economic Reforms</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">IMF Executive Board concludes 2025 Article IV consultation, commending Zimbabwe's macroeconomic stability improvements, disciplined monetary policy, and ZiG currency stabilization.</p>
+                        <div class="flex items-center text-sm text-success">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            <span>Economic Stability</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Card 2 -->
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="bg-gradient-to-r from-success to-green-700 h-2"></div>
+                    <div class="p-6">
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">2025</div>
+                        <h3 class="text-xl font-bold mb-3 text-primary dark:text-secondary">Record Agricultural Output</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Zimbabwe achieves record-breaking harvests: 600,045 MT wheat (self-sufficiency secured) and 355 million kg tobacco ($1.17B export earnings), ensuring food sovereignty.</p>
+                        <div class="flex items-center text-sm text-success">
+                            <i class="fas fa-seedling mr-2"></i>
+                            <span>Food Security</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Card 3 -->
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="bg-gradient-to-r from-accent to-red-700 h-2"></div>
+                    <div class="p-6">
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">2025</div>
+                        <h3 class="text-xl font-bold mb-3 text-primary dark:text-secondary">Manufacturing Leads GDP Growth</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Following GDP rebasing by ZIMSTAT, manufacturing sector emerges as largest GDP contributor at 15.3%, driven by $1.4B+ investments and 200% production increase since 2019.</p>
+                        <div class="flex items-center text-sm text-accent">
+                            <i class="fas fa-industry mr-2"></i>
+                            <span>Industrial Growth</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Card 4 -->
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="bg-gradient-to-r from-secondary to-yellow-600 h-2"></div>
+                    <div class="p-6">
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">2025</div>
+                        <h3 class="text-xl font-bold mb-3 text-primary dark:text-secondary">Forbes Names Zimbabwe #1 Destination</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Tourism sector soars as Zimbabwe ranks world's #1 travel destination by Forbes Magazine. Open Skies Policy attracts 22 international airlines, boosting arrivals and investment.</p>
+                        <div class="flex items-center text-sm text-secondary">
+                            <i class="fas fa-plane-departure mr-2"></i>
+                            <span>Tourism Boom</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Card 5 -->
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="bg-gradient-to-r from-blue-600 to-blue-800 h-2"></div>
+                    <div class="p-6">
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">September 2024</div>
+                        <h3 class="text-xl font-bold mb-3 text-primary dark:text-secondary">Cabinet Approves NDS2 Roadmap</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Cabinet approves comprehensive roadmap for NDS2 (2026-2030), building on NDS1 achievements. Focus on fiscal discipline, inclusive growth, and achieving Vision 2030 targets.</p>
+                        <div class="flex items-center text-sm text-blue-600">
+                            <i class="fas fa-clipboard-check mr-2"></i>
+                            <span>Policy Framework</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Card 6 -->
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="bg-gradient-to-r from-purple-600 to-purple-800 h-2"></div>
+                    <div class="p-6">
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">2025</div>
+                        <h3 class="text-xl font-bold mb-3 text-primary dark:text-secondary">DISCO Steel Plant Development</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">$1.5 billion Dinson Iron & Steel Company emerges as Africa's largest steel plant, creating 2,000+ jobs and positioning Zimbabwe as major regional steel producer.</p>
+                        <div class="flex items-center text-sm text-purple-600">
+                            <i class="fas fa-hammer mr-2"></i>
+                            <span>Industrial Development</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources & Downloads Section -->
+    <section id="resources" class="py-16 bg-white dark:bg-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 text-primary dark:text-secondary">Resources & Downloads</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Access official documents, reports, and publications related to Zimbabwe's Vision 2030</p>
+            </div>
+
+            <div id="resources-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Resources will be loaded dynamically -->
+                <div class="text-center col-span-full py-8">
+                    <i class="fas fa-spinner fa-spin text-4xl text-primary mb-4"></i>
+                    <p class="text-gray-600 dark:text-gray-400">Loading resources...</p>
+                </div>
+            </div>
+
+            <!-- Upload Resources (Admin Feature) -->
+            <div id="admin-upload" class="mt-12 bg-gray-50 dark:bg-dark-bg rounded-lg shadow-lg p-6 hidden">
+                <h3 class="text-2xl font-bold mb-4 text-primary dark:text-secondary">Upload New Resource (Admin)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" id="resource-title" placeholder="Document Title" class="px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white text-base">
+                    <input type="text" id="resource-url" placeholder="Document URL" class="px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white text-base">
+                    <select id="resource-category" class="px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white text-base">
+                        <option value="Reports">Reports</option>
+                        <option value="Strategy Documents">Strategy Documents</option>
+                        <option value="Infrastructure">Infrastructure</option>
+                        <option value="Economic Data">Economic Data</option>
+                    </select>
+                    <input type="text" id="resource-size" placeholder="File Size (e.g., 5.2 MB)" class="px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white text-base">
+                </div>
+                <textarea id="resource-description" placeholder="Description" rows="3" class="w-full mt-4 px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white text-base"></textarea>
+                <button type="button" onclick="addResource()" class="mt-4 bg-primary hover:bg-green-800 text-white px-6 py-2 rounded-lg font-bold">Add Resource</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Progress Tracker -->
+    <section id="tracker" class="py-16 bg-gray-50 dark:bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 text-primary dark:text-secondary">Infrastructure Progress Tracker</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Real-time tracking of major infrastructure projects across Zimbabwe</p>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="mb-8 flex flex-wrap justify-center gap-3">
+                <button type="button" onclick="filterProjects('all')" class="filter-btn active px-6 py-2 rounded-full font-medium transition-all text-base">All Projects</button>
+                <button type="button" onclick="filterProjects('Water Security')" class="filter-btn px-6 py-2 rounded-full font-medium transition-all text-base">Water Security</button>
+                <button type="button" onclick="filterProjects('Transport')" class="filter-btn px-6 py-2 rounded-full font-medium transition-all text-base">Transport</button>
+                <button type="button" onclick="filterProjects('Energy')" class="filter-btn px-6 py-2 rounded-full font-medium transition-all text-base">Energy</button>
+                <button type="button" onclick="filterProjects('Industrial')" class="filter-btn px-6 py-2 rounded-full font-medium transition-all text-base">Industrial</button>
+            </div>
+
+            <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Projects will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Q&A Assistant Section -->
+    <section id="live-assistant" class="py-16 bg-white dark:bg-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 text-primary dark:text-secondary">Ask Vision 2030 Assistant</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Get instant answers about Zimbabwe's economic development, programs, and progress</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-50 dark:bg-dark-bg rounded-lg shadow-lg p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-success text-white flex items-center justify-center">
+                            <i class="fas fa-robot text-2xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-primary dark:text-secondary">AI-Powered Assistant</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Powered by Claude-Sonnet-4.5</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Question Buttons -->
+                    <div class="mb-6">
+                        <p class="text-sm font-medium mb-3 text-gray-700 dark:text-gray-300">Quick Questions:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button type="button" onclick="askQuestion('What is Zimbabwe Vision 2030?')" class="bg-white dark:bg-gray-700 hover:bg-primary hover:text-white border border-gray-300 dark:border-gray-600 px-4 py-2 rounded-lg text-sm transition-all">What is Vision 2030?</button>
+                            <button type="button" onclick="askQuestion('What are the main achievements of NDS1?')" class="bg-white dark:bg-gray-700 hover:bg-primary hover:text-white border border-gray-300 dark:border-gray-600 px-4 py-2 rounded-lg text-sm transition-all">NDS1 Achievements</button>
+                            <button type="button" onclick="askQuestion('What is the current GDP growth rate?')" class="bg-white dark:bg-gray-700 hover:bg-primary hover:text-white border border-gray-300 dark:border-gray-600 px-4 py-2 rounded-lg text-sm transition-all">Current GDP Growth</button>
+                            <button type="button" onclick="askQuestion('Tell me about infrastructure projects')" class="bg-white dark:bg-gray-700 hover:bg-primary hover:text-white border border-gray-300 dark:border-gray-600 px-4 py-2 rounded-lg text-sm transition-all">Infrastructure Projects</button>
+                        </div>
+                    </div>
+
+                    <!-- Chat Interface -->
+                    <div id="chat-messages" class="bg-white dark:bg-gray-800 rounded-lg p-4 mb-4 h-96 overflow-y-auto border border-gray-200 dark:border-gray-700">
+                        <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+                            <i class="fas fa-comments text-4xl mb-3 opacity-50"></i>
+                            <p>Ask me anything about Zimbabwe's Vision 2030!</p>
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="flex gap-2">
+                        <input type="text" id="user-question" placeholder="Type your question here..." class="flex-1 px-4 py-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white text-base" onkeypress="if(event.key === 'Enter') askQuestion()">
+                        <button type="button" onclick="askQuestion()" class="bg-primary hover:bg-green-800 text-white px-6 py-3 rounded-lg font-bold transition-all">
+                            <i class="fas fa-paper-plane mr-2"></i>Ask
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feedback & Contact Section -->
+    <section id="feedback" class="py-16 bg-gray-50 dark:bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 text-primary dark:text-secondary">Feedback & Contact</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Share your thoughts, suggestions, or reach out to us</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Feedback Form -->
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-6 text-primary dark:text-secondary">Send Feedback</h3>
+                    <form id="feedback-form">
+                        <div class="mb-4">
+                            <label for="feedback-name" class="block text-sm font-medium mb-2">Your Name</label>
+                            <input type="text" id="feedback-name" required class="w-full px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white text-base">
+                        </div>
+                        <div class="mb-4">
+                            <label for="feedback-email" class="block text-sm font-medium mb-2">Email Address</label>
+                            <input type="email" id="feedback-email" required class="w-full px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white text-base">
+                        </div>
+                        <div class="mb-4">
+                            <label for="feedback-category" class="block text-sm font-medium mb-2">Category</label>
+                            <select id="feedback-category" class="w-full px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white text-base">
+                                <option value="general">General Feedback</option>
+                                <option value="suggestion">Suggestion</option>
+                                <option value="technical">Technical Issue</option>
+                                <option value="data">Data Update Request</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="feedback-message" class="block text-sm font-medium mb-2">Your Message</label>
+                            <textarea id="feedback-message" rows="5" required class="w-full px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white text-base"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-green-800 text-white px-6 py-3 rounded-lg font-bold transition-all">
+                            <i class="fas fa-paper-plane mr-2"></i>Submit Feedback
+                        </button>
+                    </form>
+                    <div id="feedback-response" class="mt-4 hidden"></div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="space-y-6">
+                    <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-bold mb-6 text-primary dark:text-secondary">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-primary text-xl mr-4 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold mb-1">Address</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">Office of the President and Cabinet<br>Munhumutapa Building<br>Harare, Zimbabwe</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-phone text-primary text-xl mr-4 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold mb-1">Phone</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">+263 242 700 000</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-primary text-xl mr-4 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold mb-1">Email</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">info@vision2030.gov.zw</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-globe text-primary text-xl mr-4 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold mb-1">Website</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">www.vision2030.gov.zw</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-primary to-success text-white rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-bold mb-4">Follow Our Progress</h3>
+                        <p class="mb-6 opacity-90">Stay updated with the latest developments on our social media channels</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all">
+                                <i class="fab fa-facebook text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all">
+                                <i class="fab fa-twitter text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all">
+                                <i class="fab fa-linkedin text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all">
+                                <i class="fab fa-youtube text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Update Settings (Admin Panel) -->
+    <div id="admin-panel" class="fixed bottom-4 right-4 z-50 hidden">
+        <button type="button" onclick="toggleAdminPanel()" class="bg-secondary hover:bg-yellow-600 text-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all">
+            <i class="fas fa-cog text-2xl"></i>
+        </button>
+    </div>
+
+    <div id="admin-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-dark-card rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-primary dark:text-secondary">Admin Settings</h2>
+                    <button type="button" onclick="toggleAdminPanel()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+
+                <!-- Data Source Configuration -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-4">Data Source Configuration</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Data Source Type</label>
+                            <select id="data-source-type" class="w-full px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 text-base" onchange="toggleDataSource()">
+                                <option value="local">Local JSON File</option>
+                                <option value="remote">Remote API/URL</option>
+                            </select>
+                        </div>
+                        <div id="remote-url-input" class="hidden">
+                            <label class="block text-sm font-medium mb-2">Remote Data URL</label>
+                            <input type="url" id="remote-data-url" placeholder="https://api.vision2030.gov.zw/data.json" class="w-full px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 text-base">
+                        </div>
+                        <button type="button" onclick="updateDataSource()" class="bg-primary hover:bg-green-800 text-white px-6 py-2 rounded-lg font-bold">
+                            Update Data Source
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Manual Data Refresh -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-4">Data Management</h3>
+                    <div class="space-y-3">
+                        <button type="button" onclick="refreshData()" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold">
+                            <i class="fas fa-sync-alt mr-2"></i>Refresh All Data
+                        </button>
+                        <button type="button" onclick="exportData()" class="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-bold">
+                            <i class="fas fa-download mr-2"></i>Export Current Data
+                        </button>
+                        <button type="button" onclick="document.getElementById('import-file').click()" class="w-full bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-bold">
+                            <i class="fas fa-upload mr-2"></i>Import Data from File
+                        </button>
+                        <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(event)">
+                    </div>
+                </div>
+
+                <!-- Auto-Update Settings -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-4">Auto-Update Settings</h3>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-sm font-medium">Enable Auto-Update</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="auto-update-toggle" class="sr-only peer" onchange="toggleAutoUpdate()">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 dark:peer-focus:ring-primary/40 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                        </label>
+                    </div>
+                    <div id="auto-update-settings" class="hidden">
+                        <label class="block text-sm font-medium mb-2">Update Interval (minutes)</label>
+                        <input type="number" id="update-interval" value="30" min="5" max="1440" class="w-full px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 text-base">
+                    </div>
+                </div>
+
+                <!-- Admin Access -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Admin Access</h3>
+                    <button type="button" onclick="toggleResourceUpload()" class="w-full bg-accent hover:bg-red-700 text-white px-6 py-2 rounded-lg font-bold">
+                        <i class="fas fa-upload mr-2"></i>Toggle Resource Upload Panel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-secondary font-bold text-xl mb-4">Zimbabwe Vision 2030</h3>
+                    <p class="text-sm mb-4">Towards an Upper Middle-Income Economy by 2030: Inclusive Growth, Innovation, and Resilience.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-secondary transition-colors"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-secondary transition-colors"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-secondary transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-secondary transition-colors"><i class="fab fa-youtube text-xl"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-secondary font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#overview" class="hover:text-white transition-colors">Vision 2030 Overview</a></li>
+                        <li><a href="#economy" class="hover:text-white transition-colors">Economic Data</a></li>
+                        <li><a href="#programs" class="hover:text-white transition-colors">Development Programs</a></li>
+                        <li><a href="#sectors" class="hover:text-white transition-colors">Economic Sectors</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-secondary font-bold mb-4">Programs</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#programs" class="hover:text-white transition-colors">TSP (2018-2020)</a></li>
+                        <li><a href="#programs" class="hover:text-white transition-colors">NDS1 (2021-2025)</a></li>
+                        <li><a href="#programs" class="hover:text-white transition-colors">NDS2 (2026-2030)</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Ministry Portals</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Government Projects</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-secondary font-bold mb-4">Contact</h4>
+                    <p class="text-sm mb-2">Office of the President and Cabinet</p>
+                    <p class="text-sm mb-2">Munhumutapa Building, Harare</p>
+                    <p class="text-sm mb-2">Zimbabwe</p>
+                    <p class="text-sm">+263 242 700 000</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-6 text-center text-sm">
+                <p>&copy; 2025 | Munyaradzi Chiondegwa | Zimbabwe Vision 2030. All Rights Reserved.</p>
+                <p class="mt-2 text-xs text-gray-500">Data sources: IMF, World Bank, ZIMSTAT, AfDB, Government of Zimbabwe</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Chart.js Configuration
+        const chartColors = {
+            primary: '#1a531b',
+            secondary: '#d4af37',
+            accent: '#e31e24',
+            success: '#008751',
+            blue: '#3b82f6',
+            purple: '#9333ea'
+        };
+
+        // GDP Growth Chart
+        const gdpCtx = document.getElementById('gdpChart').getContext('2d');
+        new Chart(gdpCtx, {
+            type: 'line',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'GDP Growth Rate (%)',
+                    data: [3.5, 5.3, 5.5, 5.0, 2.0, 6.0],
+                    borderColor: chartColors.primary,
+                    backgroundColor: 'rgba(26, 83, 27, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: chartColors.primary,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            font: { size: 14, weight: 'bold' },
+                            color: document.documentElement.classList.contains('dark') ? '#E5E5E5' : '#333'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        titleFont: { size: 14 },
+                        bodyFont: { size: 13 }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 8,
+                        ticks: {
+                            callback: (value) => value + '%',
+                            color: document.documentElement.classList.contains('dark') ? '#E5E5E5' : '#333'
+                        },
+                        grid: {
+                            color: document.documentElement.classList.contains('dark') ? '#374151' : '#e5e7eb'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: document.documentElement.classList.contains('dark') ? '#E5E5E5' : '#333'
+                        },
+                        grid: {
+                            color: document.documentElement.classList.contains('dark') ? '#374151' : '#e5e7eb'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Sector Contribution Chart
+        const sectorCtx = document.getElementById('sectorChart').getContext('2d');
+        new Chart(sectorCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Manufacturing', 'Mining', 'Agriculture', 'Services', 'Tourism', 'Other'],
+                datasets: [{
+                    data: [15.3, 14.5, 12.0, 35.0, 8.0, 15.2],
+                    backgroundColor: [
+                        chartColors.primary,
+                        chartColors.accent,
+                        chartColors.success,
+                        chartColors.blue,
+                        chartColors.secondary,
+                        chartColors.purple
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            font: { size: 12 },
+                            color: document.documentElement.classList.contains('dark') ? '#E5E5E5' : '#333',
+                            padding: 10
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '% of GDP';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Inflation Chart
+        const inflationCtx = document.getElementById('inflationChart').getContext('2d');
+        new Chart(inflationCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan 24', 'Apr 24', 'Jul 24', 'Oct 24', 'Jan 25', 'Jun 25'],
+                datasets: [{
+                    label: 'Monthly Inflation (%)',
+                    data: [25.3, 32.1, 37.2, 24.9, 5.2, 0.3],
+                    backgroundColor: [
+                        'rgba(227, 30, 36, 0.8)',
+                        'rgba(227, 30, 36, 0.7)',
+                        'rgba(227, 30, 36, 0.6)',
+                        'rgba(212, 175, 55, 0.7)',
+                        'rgba(0, 135, 81, 0.7)',
+                        'rgba(0, 135, 81, 0.9)'
+                    ],
+                    borderColor: [
+                        chartColors.accent,
+                        chartColors.accent,
+                        chartColors.accent,
+                        chartColors.secondary,
+                        chartColors.success,
+                        chartColors.success
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            font: { size: 14, weight: 'bold' },
+                            color: document.documentElement.classList.contains('dark') ? '#E5E5E5' : '#333'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: (value) => value + '%',
+                            color: document.documentElement.classList.contains('dark') ? '#E5E5E5' : '#333'
+                        },
+                        grid: {
+                            color: document.documentElement.classList.contains('dark') ? '#374151' : '#e5e7eb'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: document.documentElement.classList.contains('dark') ? '#E5E5E5' : '#333'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Update chart colors on theme change
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    const textColor = isDark ? '#E5E5E5' : '#333';
+                    const gridColor = isDark ? '#374151' : '#e5e7eb';
+
+                    Chart.helpers.each(Chart.instances, (chart) => {
+                        if (chart.options.plugins.legend) {
+                            chart.options.plugins.legend.labels.color = textColor;
+                        }
+                        if (chart.options.scales) {
+                            if (chart.options.scales.x) {
+                                chart.options.scales.x.ticks.color = textColor;
+                                if (chart.options.scales.x.grid) {
+                                    chart.options.scales.x.grid.color = gridColor;
+                                }
+                            }
+                            if (chart.options.scales.y) {
+                                chart.options.scales.y.ticks.color = textColor;
+                                chart.options.scales.y.grid.color = gridColor;
+                            }
+                        }
+                        chart.update();
+                    });
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+    </script>
+
+    <!-- Dynamic Functionality -->
+    <script src="app.js"></script>
+</body>
+</html>
