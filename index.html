@@ -50,6 +50,22 @@
         /* Map container */
         .map-container { height: 500px; width: 100%; border-radius: 8px; }
 
+        /* Mapbox popup customization */
+        .mapboxgl-popup-content {
+            padding: 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .mapboxgl-popup-close-button {
+            font-size: 20px;
+            padding: 0 8px;
+            color: #6b7280;
+        }
+        .mapboxgl-popup-close-button:hover {
+            background-color: #f3f4f6;
+            color: #1a531b;
+        }
+
         /* Lazy loading */
         img[loading="lazy"] { opacity: 0; transition: opacity 0.3s; }
         img[loading="lazy"].loaded { opacity: 1; }
@@ -407,6 +423,24 @@
                     <button class="province-btn px-4 py-2 rounded-lg bg-gray-300 dark:bg-gray-600 hover:bg-secondary hover:text-primary transition" data-province="Matabeleland South">Mat South</button>
                     <button class="province-btn px-4 py-2 rounded-lg bg-gray-300 dark:bg-gray-600 hover:bg-secondary hover:text-primary transition" data-province="Matabeleland North">Mat North</button>
                     <button class="province-btn px-4 py-2 rounded-lg bg-gray-300 dark:bg-gray-600 hover:bg-secondary hover:text-primary transition" data-province="Manicaland">Manicaland</button>
+                </div>
+
+                <!-- Map Info -->
+                <div class="bg-blue-50 dark:bg-blue-900 border-l-4 border-blue-500 p-4 mb-4 rounded">
+                    <div class="flex items-start">
+                        <i class="fas fa-info-circle text-blue-500 text-xl mr-3 mt-1"></i>
+                        <div>
+                            <p class="text-sm text-blue-900 dark:text-blue-100">
+                                <strong>Interactive Map:</strong> Click on colored markers to view project details.
+                                <span class="inline-flex items-center gap-2 ml-2">
+                                    <span class="w-3 h-3 rounded-full bg-primary inline-block"></span> Transport
+                                    <span class="w-3 h-3 rounded-full bg-secondary inline-block"></span> Energy
+                                    <span class="w-3 h-3 rounded-full" style="background-color: #3b82f6;"></span> Water
+                                    <span class="w-3 h-3 rounded-full bg-accent inline-block"></span> Industrial
+                                </span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Map Container -->
@@ -1169,27 +1203,88 @@
             const types = ['Water Security', 'Transport', 'Energy', 'Industrial'];
             const projects = [];
 
-            // Major known projects
+            // Major known projects with accurate coordinates
             const majorProjects = [
-                { name: 'Kunzvi Dam', type: 'Water Security', progress: 65, province: 'Mashonaland East', lat: -17.8, lng: 31.5 },
-                { name: 'Gwayi-Shangani Dam', type: 'Water Security', progress: 72.4, province: 'Matabeleland North', lat: -18.8, lng: 27.5 },
-                { name: 'Lake Gwayi-Tshangani', type: 'Water Security', progress: 50, province: 'Matabeleland North', lat: -18.9, lng: 27.6 },
+                { name: 'Kunzvi Dam', type: 'Water Security', progress: 65, province: 'Mashonaland East', lat: -17.7500, lng: 31.3000 },
+                { name: 'Gwayi-Shangani Dam', type: 'Water Security', progress: 72.4, province: 'Matabeleland North', lat: -18.8500, lng: 27.4500 },
+                { name: 'Lake Gwayi-Tshangani', type: 'Water Security', progress: 50, province: 'Matabeleland North', lat: -18.9200, lng: 27.5800 },
                 { name: 'Trabablas Interchange', type: 'Transport', progress: 100, province: 'Harare', lat: -17.8378, lng: 31.0469 },
-                { name: 'DISCO Steel Plant', type: 'Industrial', progress: 45, province: 'Midlands', lat: -19.0, lng: 30.0 },
-                { name: 'Hwange Power Station Expansion', type: 'Energy', progress: 85, province: 'Matabeleland North', lat: -18.3, lng: 26.5 }
+                { name: 'DISCO Steel Plant', type: 'Industrial', progress: 45, province: 'Midlands', lat: -19.0152, lng: 29.9947 },
+                { name: 'Hwange Power Station', type: 'Energy', progress: 85, province: 'Matabeleland North', lat: -18.3647, lng: 26.5000 },
+                { name: 'Beitbridge-Chirundu Highway', type: 'Transport', progress: 70, province: 'Matabeleland South', lat: -20.8500, lng: 28.2000 },
+                { name: 'Robert Mugabe International Airport Expansion', type: 'Transport', progress: 60, province: 'Harare', lat: -17.9318, lng: 31.0928 },
+                { name: 'Kariba South Power Station', type: 'Energy', progress: 90, province: 'Mashonaland West', lat: -16.5167, lng: 28.8000 },
+                { name: 'Tokwe Mukosi Dam', type: 'Water Security', progress: 95, province: 'Masvingo', lat: -20.7833, lng: 31.0167 }
             ];
 
             projects.push(...majorProjects);
 
+            // Province center coordinates for generating additional projects
+            const provinceCoords = {
+                'Harare': { lat: -17.8378, lng: 31.0469 },
+                'Bulawayo': { lat: -20.1500, lng: 28.5833 },
+                'Mashonaland East': { lat: -17.8000, lng: 31.5000 },
+                'Mashonaland West': { lat: -17.9000, lng: 29.8000 },
+                'Mashonaland Central': { lat: -17.2000, lng: 31.0000 },
+                'Midlands': { lat: -19.0000, lng: 30.0000 },
+                'Masvingo': { lat: -20.0667, lng: 30.8333 },
+                'Matabeleland South': { lat: -21.0000, lng: 28.0000 },
+                'Matabeleland North': { lat: -18.5000, lng: 27.5000 },
+                'Manicaland': { lat: -18.9667, lng: 32.6667 }
+            };
+
             // Generate additional projects for each province (5+ per province)
             provinces.forEach(province => {
+                const center = provinceCoords[province];
                 const provinceProjects = [
-                    { name: `${province} Road Rehabilitation`, type: 'Transport', progress: Math.floor(Math.random() * 40 + 40), province },
-                    { name: `${province} Rural Electrification`, type: 'Energy', progress: Math.floor(Math.random() * 30 + 60), province },
-                    { name: `${province} Water Supply Upgrade`, type: 'Water Security', progress: Math.floor(Math.random() * 35 + 50), province },
-                    { name: `${province} Industrial Park`, type: 'Industrial', progress: Math.floor(Math.random() * 40 + 30), province },
-                    { name: `${province} Bridge Construction`, type: 'Transport', progress: Math.floor(Math.random() * 30 + 55), province },
-                    { name: `${province} Solar Power Project`, type: 'Energy', progress: Math.floor(Math.random() * 40 + 45), province }
+                    {
+                        name: `${province} Road Rehabilitation`,
+                        type: 'Transport',
+                        progress: Math.floor(Math.random() * 40 + 40),
+                        province,
+                        lat: center.lat + (Math.random() - 0.5) * 0.5,
+                        lng: center.lng + (Math.random() - 0.5) * 0.5
+                    },
+                    {
+                        name: `${province} Rural Electrification`,
+                        type: 'Energy',
+                        progress: Math.floor(Math.random() * 30 + 60),
+                        province,
+                        lat: center.lat + (Math.random() - 0.5) * 0.5,
+                        lng: center.lng + (Math.random() - 0.5) * 0.5
+                    },
+                    {
+                        name: `${province} Water Supply Upgrade`,
+                        type: 'Water Security',
+                        progress: Math.floor(Math.random() * 35 + 50),
+                        province,
+                        lat: center.lat + (Math.random() - 0.5) * 0.5,
+                        lng: center.lng + (Math.random() - 0.5) * 0.5
+                    },
+                    {
+                        name: `${province} Industrial Park`,
+                        type: 'Industrial',
+                        progress: Math.floor(Math.random() * 40 + 30),
+                        province,
+                        lat: center.lat + (Math.random() - 0.5) * 0.5,
+                        lng: center.lng + (Math.random() - 0.5) * 0.5
+                    },
+                    {
+                        name: `${province} Bridge Construction`,
+                        type: 'Transport',
+                        progress: Math.floor(Math.random() * 30 + 55),
+                        province,
+                        lat: center.lat + (Math.random() - 0.5) * 0.5,
+                        lng: center.lng + (Math.random() - 0.5) * 0.5
+                    },
+                    {
+                        name: `${province} Solar Power Project`,
+                        type: 'Energy',
+                        progress: Math.floor(Math.random() * 40 + 45),
+                        province,
+                        lat: center.lat + (Math.random() - 0.5) * 0.5,
+                        lng: center.lng + (Math.random() - 0.5) * 0.5
+                    }
                 ];
 
                 projects.push(...provinceProjects);
@@ -1435,6 +1530,18 @@
                 zoom: 5.5
             });
 
+            // Add navigation controls (zoom and rotation)
+            map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+            // Add fullscreen control
+            map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
+
+            // Add scale control
+            map.addControl(new mapboxgl.ScaleControl({
+                maxWidth: 100,
+                unit: 'metric'
+            }), 'bottom-left');
+
             map.on('load', () => {
                 updateMapMarkers(currentProjects);
             });
@@ -1447,51 +1554,72 @@
             // Remove existing markers
             document.querySelectorAll('.mapboxgl-marker').forEach(m => m.remove());
 
-            // Province coordinates
-            const provinceCoords = {
-                'Harare': [31.0469, -17.8378],
-                'Bulawayo': [28.5833, -20.15],
-                'Mashonaland East': [31.5, -17.8],
-                'Mashonaland West': [29.8, -17.9],
-                'Mashonaland Central': [31.0, -17.2],
-                'Midlands': [30.0, -19.0],
-                'Masvingo': [30.8333, -20.0667],
-                'Matabeleland South': [28.0, -21.0],
-                'Matabeleland North': [27.5, -18.5],
-                'Manicaland': [32.6667, -18.9667]
+            // Color scheme based on project type (Zimbabwe flag colors)
+            const typeColors = {
+                'Water Security': '#3b82f6',      // Blue
+                'Transport': '#1a531b',            // Green (Zimbabwe flag)
+                'Energy': '#d4af37',               // Yellow/Gold (Zimbabwe flag)
+                'Industrial': '#e31e24'            // Red (Zimbabwe flag)
             };
 
             projects.forEach(project => {
+                // Use project's lat/lng if available
                 const coords = project.lat && project.lng
                     ? [project.lng, project.lat]
-                    : provinceCoords[project.province] || [29.8, -19.0];
+                    : [29.8, -19.0]; // Default to center of Zimbabwe
 
-                // Add random offset for projects in same province
-                const offset = [
-                    (Math.random() - 0.5) * 0.5,
-                    (Math.random() - 0.5) * 0.5
-                ];
-                const finalCoords = [coords[0] + offset[0], coords[1] + offset[1]];
-
+                // Create custom marker element
                 const el = document.createElement('div');
-                el.className = 'w-3 h-3 bg-primary rounded-full border-2 border-white cursor-pointer hover:scale-150 transition-transform';
+                const markerColor = typeColors[project.type] || '#1a531b';
+                el.className = 'relative';
+                el.innerHTML = `
+                    <div class="w-6 h-6 rounded-full border-3 border-white shadow-lg cursor-pointer hover:scale-125 transition-all duration-200"
+                         style="background-color: ${markerColor};">
+                        <div class="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full border border-gray-300 text-xs flex items-center justify-center"
+                             style="font-size: 8px; color: ${markerColor};">
+                            ${project.progress >= 90 ? '✓' : ''}
+                        </div>
+                    </div>
+                `;
+
+                // Progress color
+                const progressColor = project.progress >= 90 ? '#10b981' :
+                                     project.progress >= 50 ? '#f59e0b' : '#ef4444';
 
                 const marker = new mapboxgl.Marker(el)
-                    .setLngLat(finalCoords)
-                    .setPopup(new mapboxgl.Popup({ offset: 25 })
-                        .setHTML(`
-                            <div class="p-2">
-                                <h4 class="font-bold text-primary">${project.name}</h4>
-                                <p class="text-sm">${project.type}</p>
-                                <p class="text-sm">${project.province}</p>
-                                <div class="mt-2">
-                                    <div class="w-full bg-gray-200 rounded-full h-2">
-                                        <div class="bg-primary h-2 rounded-full" style="width: ${project.progress}%"></div>
-                                    </div>
-                                    <p class="text-xs mt-1">${project.progress}% Complete</p>
+                    .setLngLat(coords)
+                    .setPopup(new mapboxgl.Popup({
+                        offset: 25,
+                        className: 'custom-popup'
+                    })
+                    .setHTML(`
+                        <div class="p-3 min-w-[200px]">
+                            <h4 class="font-bold text-lg mb-1" style="color: ${markerColor};">${project.name}</h4>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="inline-block px-2 py-1 rounded text-xs text-white" style="background-color: ${markerColor};">
+                                    ${project.type}
+                                </span>
+                                <span class="text-xs text-gray-600">
+                                    <i class="fas fa-map-marker-alt mr-1"></i>${project.province}
+                                </span>
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="font-medium">Progress</span>
+                                    <span class="font-bold" style="color: ${progressColor};">${project.progress}%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                                    <div class="h-2.5 rounded-full transition-all duration-500"
+                                         style="width: ${project.progress}%; background-color: ${progressColor};"></div>
+                                </div>
+                                <div class="mt-2 text-xs text-gray-500">
+                                    ${project.progress >= 90 ? '<i class="fas fa-check-circle text-green-600 mr-1"></i>Near Completion' :
+                                      project.progress >= 50 ? '<i class="fas fa-clock text-yellow-600 mr-1"></i>On Track' :
+                                      '<i class="fas fa-hammer text-blue-600 mr-1"></i>In Progress'}
                                 </div>
                             </div>
-                        `))
+                        </div>
+                    `))
                     .addTo(map);
             });
         }
